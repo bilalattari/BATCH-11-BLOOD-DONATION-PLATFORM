@@ -6,6 +6,7 @@ import { AuthContext } from '../context/AuthContext';
 function Home() {
     const { setUser } = useContext(AuthContext);
     const [donors, setDonors] = useState([]);
+    const [bloodGroupWiseDonors, setBloodGroupWiseDonors] = useState([]);
     const [filters, setFilters] = useState({
         age: 'all',
         bloodGroup: 'all',
@@ -20,7 +21,8 @@ function Home() {
             const headers = getHeaders();
             const res = await axios.get(`${APP_ROUTES.getDonors}?age=${filters.age}&bloodGroup=${filters.bloodGroup}&takingAntibiotic=${filters.takingAntibiotic}`, headers);
             console.log("res.data.data=>", res.data.data)
-            setDonors(res.data.data)
+            setDonors(res.data.data?.donors)
+            setBloodGroupWiseDonors(res.data.data?.bloodGroupWiseDonors)
         } catch (err) {
             console.error(err);
         }
@@ -46,8 +48,8 @@ function Home() {
                         <option value="30">Above 30</option>
                         <option value="40">Above 40</option>
                         <option value="50">Above 50</option>
-                        <option value="60">Above 50</option>
-                        <option value="70">Above 50</option>
+                        <option value="60">Above 60</option>
+                        <option value="70">Above 70</option>
                     </select>
                 </div>
 
@@ -85,6 +87,13 @@ function Home() {
                     </select>
                 </div>
             </div>
+
+            <div className='flex gap-10 mb-10'>
+                {bloodGroupWiseDonors.map((data) => <div key={data._id}>
+                    <h1 className='flex-grow p-3 border rounded'>
+                        {data._id} : {data.
+                            totalQuantity}</h1> </div>)}
+            </div>
             {donors.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {donors.map((donor) => (
@@ -95,6 +104,9 @@ function Home() {
                             <h2 className="text-xl font-semibold text-gray-800">
                                 {donor.firstName} {donor.lastName}
                             </h2>
+                            <p className={`text-gray-600 ${donor.isEligible == 'yes' ? "bg-green-200" : "bg-red-50"}`}>
+                                <strong>Is Eligable</strong> {donor.isEligible}
+                            </p>
                             <p className="text-gray-600">
                                 <strong>Blood Group:</strong> {donor.bloodGroup}
                             </p>

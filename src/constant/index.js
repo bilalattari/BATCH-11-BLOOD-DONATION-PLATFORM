@@ -19,4 +19,5 @@ export const APP_ROUTES = {
     register: BASE_URL + "auth/register",
     userInfo: BASE_URL + "user/userInfo",
     getDonors: BASE_URL + "blooddonors",
+    getOrders: BASE_URL + "orders"
 }

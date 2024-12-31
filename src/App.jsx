@@ -4,6 +4,7 @@ import { AuthContext } from './context/AuthContext'
 import { Navigate, Route, Routes } from 'react-router'
 import Login from './login'
 import Home from './home'
+import Orders from './orders'
 function App() {
   const { user } = useContext(AuthContext)
   console.log("user in context==>", user)
