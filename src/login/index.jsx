@@ -23,11 +23,11 @@ function Login() {
     }
 
     return (
-        <div>
+        <div className='flex flex-col gap-10 container mx-auto text-center mt-20'>
             <h1>Login</h1>
-            <input onChange={(e) => setEmail(e.target.value)} placeholder='email' />
-            <input onChange={(e) => setPassword(e.target.value)} placeholder='password' />
-            <button onClick={login}>Login</button>
+            <input className='border p-2' onChange={(e) => setEmail(e.target.value)} placeholder='email' />
+            <input className='border p-2' onChange={(e) => setPassword(e.target.value)} placeholder='password' />
+            <button className='border p-2 bg-red-200' onClick={login}>Login</button>
         </div>
     )
 }
